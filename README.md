@@ -6,9 +6,9 @@ A collection of shaders I wrote to test out the windows terminal but they also k
 
 | Name | Preview |
 | ---- | ------- |
-| Julia | ![Julia Preview](./rsrc/julia-demo-com.mp4) |
-| Paint | ![Paint demo](./rsrc/paint-demo-com.mp4) |
-| Gold Agate | ![Gold Agate](./rsrc/gold-agate-demo-com.mp4) |
+| Julia | ![Julia Preview](./rsrc/julia-demo-com.gif) |
+| Paint | ![Paint demo](./rsrc/paint-demo-com.gif) |
+| Gold Agate | ![Gold Agate](./rsrc/gold-agate-demo-com.gif) |
 
 ## Usage
 
