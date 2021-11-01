@@ -42,7 +42,11 @@ float pattern (in float2 p, out float2 q, out float2 r, float t) {
     r.x = fbm( p + 4.*q + float2(1.7,9.2) + sin(t) + .9*sin(30.*length(q)));
     r.y = fbm( p + 8.*q + float2(8.3,2.8) + cos(t) + .9*sin(20.*length(q)));
 
-    return fbm( p + 7.*mul(r,rot(t)) );
+    float2 s;
+    s.x = fbm( p + 21.0*r + float2(1.7,9.2) + sin(t) );
+    s.y = fbm( p + 16.0*r + float2(8.3,2.8) + cos(t) );
+
+    return fbm( p + 7.*mul(s,rot(t)) );
 }
 
 float4 main(float4 pos : SV_POSITION, float2 tex : TEXCOORD) : SV_TARGET

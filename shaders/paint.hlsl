@@ -33,8 +33,9 @@ float fbm( float2 p )
     f += 0.500000*(0.5+0.5*noise( p )); p = mul(m,p)*2.02;
     f += 0.250000*(0.5+0.5*noise( p )); p = mul(m,p)*2.03;
     f += 0.125000*(0.5+0.5*noise( p )); p = mul(m,p)*2.01;
-    f += 0.015625*(0.5+0.5*noise( p ));
-    return f/0.96875;
+    f += 0.015625*(0.5+0.5*noise( p )); p = mul(m,p)*1.98;
+    f += 0.007813*(0.5+0.5*noise( p ));
+    return f;
 }
 
 float pattern(in float2 p, out float2 q, out float2 r, float t)
@@ -44,13 +45,17 @@ float pattern(in float2 p, out float2 q, out float2 r, float t)
 
     r.x = fbm( p + 10.0*q + float2(1.7,9.2) + sin(t) );
     r.y = fbm( p + 12.0*q + float2(8.3,2.8) + cos(t) );
+    
+    float2 s;
+    s.x = fbm( p + 21.0*r + float2(1.7,9.2) + sin(t) );
+    s.y = fbm( p + 16.0*r + float2(8.3,2.8) + cos(t) );
 
-    return fbm( p + 3.0*r );   
+    return fbm( p + 3.0*s );   
 }
 
 float4 main(float4 pos : SV_POSITION, float2 tex : TEXCOORD) : SV_TARGET
 {
-    float2 uv = pos.xy * 2.;
+    float2 uv = pos.xy * 4.;
     uv.x = uv.x/Resolution.x; uv.y = uv.y/Resolution.y;
     uv.x = uv.x*Resolution.x/Resolution.y;
 	
@@ -63,7 +68,7 @@ float4 main(float4 pos : SV_POSITION, float2 tex : TEXCOORD) : SV_TARGET
     float3 c = lerp(col1, float3(0,0,0), smoothstep(.0,.95,f));
     float3 a = col2 * smoothstep(0., .8, dot(q,r)*0.6);
     c = sqrt(c*c + a*a);
-    c = pow(0.5+c, 3);
+    c = pow(0.5+c, 4);
 
     float4 paint;
     paint.xyz = c;
